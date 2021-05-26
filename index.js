@@ -67,7 +67,7 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 // Listen for request
-const port = process.env.port || 4000;
+const port = process.env.PORT || 4000;
 app.listen(port, function(){
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port} `);
 });
