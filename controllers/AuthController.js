@@ -58,9 +58,10 @@ const register = (req, res, next) => {
         .then(user =>{
             res.json({
                 message: "User added successfully",
-            });
+                user: user._id
+            })
         const token = createToken(user._id);
-        //res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         }).catch(err => {
             console.log(err);
             const errors = handleErrors(err);
@@ -86,7 +87,8 @@ const login = (req, res, next) => {
                     })
                     console.log('err');
                 }if (result){
-                    let token = jwt.sign({name: user.firstName}, 'verySecretValue')
+                    const token = createToken(user._id);
+                    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
                     return res.status(200).json({
                         title: 'Login successfull'
                     })
